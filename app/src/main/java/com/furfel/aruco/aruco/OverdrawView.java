@@ -51,6 +51,7 @@ public class OverdrawView extends View {
         scorepaint.setTextSize(64f);
         scorepaint.setStyle(Paint.Style.FILL);
         paint.setStyle(Paint.Style.FILL);
+        paint.setTextSize(32f);
         for(int i=0;i<points.length;++i)
             points[i] = new Point(-1000,-1000);
     }
@@ -151,7 +152,7 @@ public class OverdrawView extends View {
             }
         }
         canvas.drawText("Markers set up: "+setupMarkers.size(), 32f,32f,paint);
-        canvas.drawText("Score: "+score, 32f,64f, scorepaint);
+        canvas.drawText("Score: "+score, 48f,128f, scorepaint);
     }
 
     public void onStart() {

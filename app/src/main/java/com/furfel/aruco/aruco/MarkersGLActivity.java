@@ -60,7 +60,7 @@ public class MarkersGLActivity extends AppCompatActivity implements CameraGLSurf
         m.put(0,0, buffer.array());
         Vector<Marker> markersVector = markerDetector.detectAndDraw(m, null, false);
         overdraw.setMarkers(markersVector);
-        overdraw.placeMarkers(m, true, markersVector);
+        overdraw.placeMarkers(m, false, markersVector);
         runOnUiThread(new Runnable() {
             @Override
             public void run() {
@@ -94,6 +94,13 @@ public class MarkersGLActivity extends AppCompatActivity implements CameraGLSurf
     };
 
     @Override
+    protected void onPause() {
+        super.onPause();
+
+        if(overdraw!=null) overdraw.onDestroy();
+    }
+
+    @Override
     public void onResume()
     {
         super.onResume();
@@ -102,5 +109,8 @@ public class MarkersGLActivity extends AppCompatActivity implements CameraGLSurf
         } else {
             mLoaderCallback.onManagerConnected(LoaderCallbackInterface.SUCCESS);
         }
+
+        if(overdraw!=null)
+            overdraw.onStart();
     }
 }
