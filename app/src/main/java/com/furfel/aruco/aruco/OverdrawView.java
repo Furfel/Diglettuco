@@ -27,7 +27,7 @@ public class OverdrawView extends View {
 
     private Point points[] = new Point[9];
     private Paint paint = new Paint(), scorepaint= new Paint();
-    private Bitmap diglet;
+    private Bitmap diglet, nodiglet;
     private int digletPlace=-1;
     private Rect digletRect = new Rect(-100,-100,-50,-50);
     private Rect digletBmpRect;
@@ -61,6 +61,8 @@ public class OverdrawView extends View {
         int width = MeasureSpec.getSize(widthMeasureSpec)/4;
         diglet = Bitmap.createScaledBitmap(BitmapFactory.decodeResource(getResources(),R.drawable.diglet),width, width, true);
         digletBmpRect = new Rect(0,0, diglet.getWidth(), diglet.getHeight());
+        nodiglet = Bitmap.createScaledBitmap(BitmapFactory.decodeResource(getResources(), R.drawable.nodiglet), width, width, true);
+        nodigletRect.set(digletBmpRect);
         Log.d("Overdraw","bitmapCreated "+diglet.getWidth()+"x"+diglet.getHeight());
         super.onMeasure(widthMeasureSpec, heightMeasureSpec);
     }
@@ -138,6 +140,8 @@ public class OverdrawView extends View {
         return super.onTouchEvent(event);
     }
 
+    private Rect nodigletRect = new Rect();
+
     @Override
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
@@ -145,9 +149,11 @@ public class OverdrawView extends View {
         synchronized (setupMarkers) {
             for (int i = 0; i < setupMarkers.size(); ++i) {
                 if (setupMarkers.get(i).x > 0) {
-                    canvas.drawCircle(setupMarkers.get(i).x, setupMarkers.get(i).y, 10f, paint);
+                    nodigletRect.offsetTo(setupMarkers.get(i).x-nodigletRect.width()/2, setupMarkers.get(i).y-nodigletRect.height()/2);
+                    canvas.drawBitmap(nodiglet, digletBmpRect, nodigletRect, null);
                     if (i == digletPlace)
                         canvas.drawBitmap(diglet, digletBmpRect, digletRect, null);
+                    canvas.drawCircle(setupMarkers.get(i).x, setupMarkers.get(i).y, 10f, paint);
                 }
             }
         }

@@ -19,4 +19,14 @@
     <string name="start_detection">Start</string>
     <string name="calibrator">Calibrator</string>
 
+    <string name="about">
+        How to <i>use</i>: select a renderer (you can also calibrate camera with circle calibration pattern) and point your camera on the board (printed or on screen) included with the .apk. When it matches at least 7 of 9 markers, digletts should start showing up. Hold on them to score (tapping is not enough because it will be so slow).
+    </string>
+    <string name="github">
+        Source on github: https://github.com/Furfel/Diglettuco
+    </string>
+    <string name="twitter">
+        Twitter: <a href="https://twitter.com/_furfel">@_furfel</a>
+    </string>
+
 </resources>
