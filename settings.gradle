@@ -1,0 +1,4 @@
+include ':app'
+def opencvsdk='/home/aurorae/Downloads/opencv-android-sdk-clean'
+include ':opencv'
+project(':opencv').projectDir = new File(opencvsdk + '/sdk')
